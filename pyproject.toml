@@ -1,0 +1,20 @@
+[project]
+name = "agentos"
+version = "0.2.0"
+description = "AgentOS — Cognitive Runtime Platform: операционная среда для искусственного интеллекта"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["agentos*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
