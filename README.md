@@ -86,7 +86,7 @@
 |---|---|---|
 | 1 | Архитектурное проектирование и документация | ✅ Завершён |
 | 2 | Core Runtime + Event Runtime (ядро и шина) | ✅ Завершён |
-| 3 | Model / Inference / Tool Runtime | — |
+| 3 | Model / Inference / Tool Runtime | ✅ Завершён |
 | 4 | Context / Memory / Knowledge Runtime | — |
 | 5 | Agent / Task / Workflow / Scheduler Runtime | — |
 | 6 | Policy / Security / Resource Runtime | — |
