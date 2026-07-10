@@ -58,6 +58,41 @@
 
 ---
 
+## Быстрый старт
+
+Эталонная реализация — Python ≥ 3.11, без внешних зависимостей
+(pytest — только для тестов).
+
+```bash
+# запустить платформу с API и Dashboard (http://127.0.0.1:8080/)
+python -m agentos serve --backend sqlite --data ./data
+
+# проверить здоровье и пообщаться с агентом
+python -m agentos health
+python -m agentos chat assistant "привет"
+
+# тесты (82: unit, contract, интеграционные, E2E через HTTP, кластер)
+pip install pytest pytest-asyncio && python -m pytest -q
+```
+
+Встраивание в свой процесс (embedded SDK):
+
+```python
+from agentos.platform import AgentOSPlatform
+from agentos.contracts.agent import AgentDefinition
+
+platform = AgentOSPlatform(models=[...])   # любые адаптеры ModelPort
+await platform.start()
+platform.agents.register(AgentDefinition(id="assistant"))
+reply = await platform.agents.send("assistant", "привет")
+```
+
+Структура кода: `agentos/kernel` — микроядро; `agentos/contracts` —
+публичные контракты (порты, события, DTO); `agentos/runtimes/*` —
+17 Runtime-модулей; `agentos/adapters` — встроенные адаптеры хранилищ и
+моделей; `agentos/cluster` — федерация шин, consistent hashing, шлюз
+распределённых агентов; `agentos/sdk` — HTTP-клиент.
+
 ## Ключевые принципы
 
 - **Microkernel + Modular Monolith → Microservices.** Ядро минимально;
@@ -91,4 +126,4 @@
 | 5 | Agent / Task / Workflow / Scheduler Runtime | ✅ Завершён |
 | 6 | Policy / Security / Resource Runtime | ✅ Завершён |
 | 7 | API Runtime, SDK, Dashboard | ✅ Завершён |
-| 8 | Кластеризация и распределённое исполнение | — |
+| 8 | Кластеризация и распределённое исполнение | ✅ Завершён |
