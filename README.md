@@ -88,7 +88,7 @@
 | 2 | Core Runtime + Event Runtime (ядро и шина) | ✅ Завершён |
 | 3 | Model / Inference / Tool Runtime | ✅ Завершён |
 | 4 | Context / Memory / Knowledge Runtime | ✅ Завершён |
-| 5 | Agent / Task / Workflow / Scheduler Runtime | — |
+| 5 | Agent / Task / Workflow / Scheduler Runtime | ✅ Завершён |
 | 6 | Policy / Security / Resource Runtime | — |
 | 7 | API Runtime, SDK, Dashboard | — |
 | 8 | Кластеризация и распределённое исполнение | — |
