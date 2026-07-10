@@ -89,6 +89,6 @@
 | 3 | Model / Inference / Tool Runtime | ✅ Завершён |
 | 4 | Context / Memory / Knowledge Runtime | ✅ Завершён |
 | 5 | Agent / Task / Workflow / Scheduler Runtime | ✅ Завершён |
-| 6 | Policy / Security / Resource Runtime | — |
+| 6 | Policy / Security / Resource Runtime | ✅ Завершён |
 | 7 | API Runtime, SDK, Dashboard | — |
 | 8 | Кластеризация и распределённое исполнение | — |
