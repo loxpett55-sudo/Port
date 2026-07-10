@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>AgentOS — Runtime Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#0f1420; --card:#182031; --text:#e6ebf4; --dim:#8b98ad; --accent:#5b8def; --ok:#3fb96f; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--text); font:14px/1.5 system-ui, sans-serif; padding:24px; }
+  h1 { font-size:20px; margin-bottom:4px; }
+  .sub { color:var(--dim); margin-bottom:20px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(340px,1fr)); gap:16px; }
+  .card { background:var(--card); border-radius:10px; padding:16px; overflow:auto; }
+  .card h2 { font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); margin-bottom:10px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  td, th { text-align:left; padding:4px 8px 4px 0; vertical-align:top; }
+  th { color:var(--dim); font-weight:500; }
+  .ok { color:var(--ok); }
+  pre { font-size:12px; white-space:pre-wrap; color:var(--dim); }
+</style>
+</head>
+<body>
+  <h1>AgentOS — Runtime Dashboard</h1>
+  <div class="sub">Cognitive Runtime Platform · живые данные публичного API</div>
+  <div class="grid">
+    <div class="card"><h2>Здоровье модулей</h2><table id="health"></table></div>
+    <div class="card"><h2>Модели</h2><table id="models"></table></div>
+    <div class="card"><h2>Агенты</h2><table id="agents"></table></div>
+    <div class="card"><h2>Инструменты</h2><table id="tools"></table></div>
+    <div class="card"><h2>Метрики</h2><pre id="metrics"></pre></div>
+    <div class="card"><h2>Последние события</h2><table id="events"></table></div>
+  </div>
+<script>
+async function json(url) { const r = await fetch(url); return r.json(); }
+function rows(el, data, cols) {
+  el.innerHTML = data.map(d => "<tr>" + cols.map(c => `<td>${d[c] ?? ""}</td>`).join("") + "</tr>").join("");
+}
+async function refresh() {
+  try {
+    const health = await json("/v1/health");
+    document.getElementById("health").innerHTML = Object.entries(health.modules)
+      .map(([id, s]) => `<tr><td>${id}</td><td class="ok">${s.state}</td></tr>`).join("");
+    const models = await json("/v1/models");
+    rows(document.getElementById("models"), models.models.map(m => ({
+      id: m.id, info: `${m.locality} · ctx ${m.context_window}`,
+    })), ["id", "info"]);
+    const agents = await json("/v1/agents");
+    rows(document.getElementById("agents"), agents.agents, ["id", "reasoner"]);
+    const tools = await json("/v1/tools");
+    rows(document.getElementById("tools"), tools.tools, ["id", "description"]);
+    document.getElementById("metrics").textContent =
+      JSON.stringify(await json("/v1/metrics"), null, 2);
+    const events = await json("/v1/events?limit=15");
+    rows(document.getElementById("events"), events.events.slice(-15).reverse().map(e => ({
+      type: e.type, subject: e.subject,
+    })), ["type", "subject"]);
+  } catch (e) { console.error(e); }
+}
+refresh(); setInterval(refresh, 3000);
+</script>
+</body>
+</html>

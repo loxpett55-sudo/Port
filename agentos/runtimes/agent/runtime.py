@@ -280,6 +280,9 @@ class AgentRuntime(RuntimeModule):
             version="0.2.0",
             provides_ports=("AgentPort@1",),
             requires_ports=("InferencePort@1", "EventPort@1"),
+            optional_ports=(
+                "ContextPort@1", "ToolPort@1", "MemoryPort@1", "SessionPort@1",
+            ),
             provides_events=("agent.spawned@1", "agent.turn.completed@1"),
         )
 

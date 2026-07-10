@@ -34,7 +34,7 @@ class DependencyGraph:
         graph: dict[str, set[str]] = {mid: set() for mid in by_id}
         for m in modules:
             man = m.manifest()
-            for req in man.requires_ports:
+            for req in (*man.requires_ports, *man.optional_ports):
                 owner = port_owner.get(PortRef.parse(req).key())
                 if owner and owner != man.id:
                     graph[man.id].add(owner)

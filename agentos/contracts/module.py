@@ -70,6 +70,9 @@ class ModuleManifest:
     version: str
     provides_ports: tuple[str, ...] = ()
     requires_ports: tuple[str, ...] = ()
+    # мягкие зависимости: учитываются в порядке запуска, если провайдер
+    # присутствует в сборке, но их отсутствие не является ошибкой
+    optional_ports: tuple[str, ...] = ()
     provides_events: tuple[str, ...] = ()
     consumes_events: tuple[str, ...] = ()
     permissions: tuple[str, ...] = ()

@@ -168,7 +168,10 @@ class ContextRuntime(RuntimeModule):
             id="context-runtime",
             version="0.2.0",
             provides_ports=("ContextPort@1",),
-            requires_ports=("EventPort@1",),  # остальные источники — опциональны
+            requires_ports=("EventPort@1",),
+            optional_ports=(
+                "SessionPort@1", "MemoryPort@1", "KnowledgePort@1", "ToolPort@1",
+            ),
             provides_events=("context.built@1",),
         )
 

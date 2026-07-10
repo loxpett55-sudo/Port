@@ -146,6 +146,7 @@ class ToolRuntime(RuntimeModule):
             version="0.2.0",
             provides_ports=("ToolPort@1",),
             requires_ports=("EventPort@1",),
+            optional_ports=("PolicyPort@1",),
             provides_events=("tool.completed@1", "tool.failed@1", "tool.denied@1"),
         )
 
