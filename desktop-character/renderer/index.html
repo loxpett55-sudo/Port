@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StarFluff — живые обои</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Сцена 1024x1024, масштабируется JS'ом до покрытия экрана (cover). -->
+  <div id="viewport">
+    <div id="scene">
+      <!-- Слой 1: базовый кадр — персонаж с закрытыми глазами. -->
+      <img id="base" src="../assets/base-closed.jpg" alt="" draggable="false" />
+
+      <!-- Слой 2: волосы/декор — копия кадра, обрезанная градиентной маской
+           до верхней части; покачивается независимо от базы, порывы ветра
+           усиливают амплитуду. Плавное затухание маски прячет шов. -->
+      <img id="hair" src="../assets/base-closed.jpg" alt="" draggable="false" />
+
+      <!-- Слой 3: глаза (открытые) — патчи с растушёванной альфой,
+           появляются при моргании и следят за курсором. -->
+      <img class="eye" id="eye-left" src="../assets/eye-left.png" alt="" draggable="false" />
+      <img class="eye" id="eye-right" src="../assets/eye-right.png" alt="" draggable="false" />
+    </div>
+  </div>
+
+  <!-- Слой 4: процедурные звёзды/искры поверх всего. -->
+  <canvas id="sparkles"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "name": "starfluff-live-wallpaper",
+  "productName": "StarFluff Live Wallpaper",
+  "version": "1.0.0",
+  "description": "Анимированный живой фон рабочего стола: пушистый персонаж на звёздном небе — моргание, слежение за курсором, покачивание и порывы ветра",
+  "main": "main.js",
+  "author": "loxpett55-sudo",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.starfluff.livewallpaper",
+    "productName": "StarFluff Live Wallpaper",
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "runAfterFinish": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
